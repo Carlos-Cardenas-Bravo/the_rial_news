@@ -59,3 +59,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "faker", "~> 3.4"
+
+gem "annotate", "~> 3.2"

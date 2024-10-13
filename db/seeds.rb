@@ -1,9 +1,35 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+require "faker"
+
+# limpio las tablas
+User.destroy_all
+Post.destroy_all
+Comment.destroy_all
+
+# creo 20 usuarios con emails y contraseñas únicas
+users = 20.times.map do
+  User.create!(
+    email: Faker::Internet.unique.email,
+    password: Faker::Internet.unique.password(min_length: 6, max_length: 8),
+    admin: false
+  )
+end
+
+# creo 50 posts con títulos y contenidos únicos
+posts = 50.times.map do
+  Post.create!(
+    title: Faker::Hipster.unique.sentences(number: 1),
+    content: Faker::Hipster.unique.paragraph(sentence_count: 10),
+    available: [true, false].sample
+  )
+end
+
+# creo 100 comentarios con contenido único
+100.times do
+  Comment.create!(
+    content: Faker::Hipster.unique.sentence(word_count: 10),
+    user: users.sample,
+    post: posts.sample
+  )
+end
+
+puts "Se han creado #{User.count} usuarios, #{Post.count} posts y #{Comment.count} comentarios."

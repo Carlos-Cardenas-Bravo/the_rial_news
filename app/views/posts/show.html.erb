@@ -3,6 +3,7 @@
 <%= render @post %>
 
 <div>
+  <%= link_to "Agregar un comentario", new_comment_path %>
   <%= link_to "Back to posts", posts_path %>
 
   <% if current_user&.admin? %>

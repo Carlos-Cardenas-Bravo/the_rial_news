@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authorize_admin, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_post, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
@@ -58,6 +60,10 @@ class PostsController < ApplicationController
   end
 
   private
+    def authorize_admin
+      redirect_to(root_path, alert: "No estás autorizado!") unless current_user&.admin?
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])

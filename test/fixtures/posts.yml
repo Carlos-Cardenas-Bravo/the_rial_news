@@ -11,11 +11,12 @@
 #
 
 one:
-  title: MyString
-  content: MyText
-  available: false
+  title: "Post de ejemplo"
+  content: "Este es el contenido de un post de ejemplo."
+  available: true
 
 two:
-  title: MyString
-  content: MyText
+  title: "Segundo post de ejemplo"
+  content: "Este es el contenido de otro post de ejemplo."
   available: false
+

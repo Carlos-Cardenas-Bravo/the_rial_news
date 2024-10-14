@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="theme-dark">
   <head>
     <title><%= content_for(:title) || "Trn" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,35 +18,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
   </head>
 
-  <body>
+  <body class="has-navbar-fixed-top">
+    <div class="container" style="max-width: 70%; margin: auto;">
+      <%= render 'shared/navbar_bulma' %>
 
-    <nav>
-      <% if user_signed_in? %>
-        <h1>Welcome Home, <%= current_user.email %></h1>
-        <%= link_to 'Sign out', destroy_user_session_path, data: { turbo_method: :delete } %>
-      <% else %>
-        <h1>Home</h1>
-        <%= link_to 'Sign in', new_user_session_path %>
-        <%= link_to 'Sign up', new_user_registration_path %>
+      <% if flash[:notice] %>
+        <div class="notification is-success" role="alert">
+          <%= flash[:notice] %>
+        </div>
       <% end %>
 
-      <% if current_user&.admin? %>
-        <%= link_to "Publicar Nuevo Post", new_post_path %>
+      <% if flash[:alert] %>
+        <div class="notification is-danger" role="alert">
+          <%= flash[:alert] %>
+        </div>
       <% end %>
-    </nav>
 
-    <% if flash[:notice] %>
-      <div class="notification is-success" role="alert">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
-
-    <% if flash[:alert] %>
-      <div class="notification is-danger" role="alert">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
-
-    <%= yield %>
+      <%= yield %>
+    </div>
   </body>
 </html>

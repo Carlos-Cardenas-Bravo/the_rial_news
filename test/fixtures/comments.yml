@@ -10,12 +10,21 @@
 #  updated_at :datetime         not null
 #
 
+
 one:
-  content: MyText
-  user: one
+  content: "Este es el primer comentario del primer post."
   post: one
+  user: one
+
 
 two:
-  content: MyText
-  user: two
+  content: "Este es un comentario del segundo post."
   post: two
+  user: two
+
+
+three:
+  content: "Este es otro comentario para el primer post."
+  post: one
+  user: one
+

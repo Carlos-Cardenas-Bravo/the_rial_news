@@ -14,4 +14,25 @@
     <%= post.available %>
   </p>
 
+  <% if post.comments.any? %>
+    <ul>
+      <% post.comments.each do |comment| %> <!-- itero sobre todos los comentarios del post -->
+        <li>
+          <strong><%= comment.user.email %>:</strong> <!-- muestro el email del usuario que hizo el comentario -->
+          <p><%= comment.content %></p>
+
+          <!-- Solo Admin puede ver este enlace para eliminar el comentario -->
+          <% if current_user&.admin? %>
+            <%= button_to "Eliminar comentario", post_comment_path(post, comment), method: :delete, data: { confirm: "¿Estás seguro que deseas eliminar este comentario?" } %>
+          <% end %>
+
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Sin comentarios aún.</p>
+  <% end %>
+
+  <!-- link para agregar un nuevo comentario -->
+  <%= link_to 'Comentar', new_post_comment_path(post) %>
 </div>

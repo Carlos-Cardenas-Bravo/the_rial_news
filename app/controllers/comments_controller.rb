@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :set_post, only: [:new, :create, :destroy]  # cargo el post para la eliminación
 
   # GET /comments or /comments.json
   def index
@@ -12,7 +14,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
+    @comment = @post.comments.build # creo un nuevo comentario asociado al post
   end
 
   # GET /comments/1/edit
@@ -21,11 +23,13 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @post.comments.build(comment_params) # asocio el comentario al post
+    @comment.user = current_user # asocio el comentario al usuario autenticado
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: "Comment was successfully created." }
+        # redirecciono al post después de que el comentario se haya guardado
+        format.html { redirect_to @post, notice: "Comentario creado." }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +42,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: "Comment was successfully updated." }
+        format.html { redirect_to @post, notice: "Comentario actualizado." }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +56,7 @@ class CommentsController < ApplicationController
     @comment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to comments_path, status: :see_other, notice: "Comment was successfully destroyed." }
+      format.html { redirect_to @post, status: :see_other, notice: "Comentario eliminado." }
       format.json { head :no_content }
     end
   end
@@ -63,8 +67,12 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
     end
 
+    def set_post
+      @post = Post.find(params[:post_id]) # encuentro el post usando el post_id de las rutas anidadas
+    end
+
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:content, :user_id, :post_id)
+      params.require(:comment).permit(:content)
     end
 end

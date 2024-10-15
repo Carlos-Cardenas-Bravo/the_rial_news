@@ -1,13 +1,11 @@
-<p style="color: green"><%= notice %></p>
-
-<!-- paso mostrar_comentarios como true -->
 <%= render partial: 'post', locals: { post: @post, mostrar_comentarios: true } %>
 
-<div class="inline-elements">
-  <%= link_to "Volver a Post", posts_path, class: "button is-light" %>
+<div class="buttons mt-4">
+  <%= link_to "Volver a Posts", posts_path, class: "button is-light" %>
 
   <% if current_user&.admin? %>
-    <%= link_to "Edit this post", edit_post_path(@post), class: "button is-light" %>
-    <%= button_to "Destroy this post", @post, method: :delete, class: "button is-light" %>
+    <%= link_to "Editar este Post", edit_post_path(@post), class: "button is-primary" %>
+    <%= button_to "Eliminar este Post", @post, method: :delete, data: { confirm: "¿Estás seguro de eliminar este post?" }, class: "button is-danger" %>
   <% end %>
 </div>
+

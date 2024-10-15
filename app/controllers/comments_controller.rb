@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action :set_post, only: [:new, :create, :destroy]  # cargo el post para la eliminación
+  before_action :authorize_admin, only: [:destroy]  # solo admin puede eliminar comentarios
 
   # GET /comments or /comments.json
   def index
@@ -63,17 +64,25 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
 
-    def set_post
-      @post = Post.find(params[:post_id]) # encuentro el post usando el post_id de las rutas anidadas
+  # este método autoriza solo a los usuarios con rol de admin
+  def authorize_admin
+    unless current_user&.admin?
+      redirect_to root_path, alert: "No estás autorizado!"
     end
+  end
 
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.require(:comment).permit(:content)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def set_post
+    @post = Post.find(params[:post_id]) # encuentro el post usando el post_id de las rutas anidadas
+  end
+
+  # Only allow a list of trusted parameters through.
+  def comment_params
+    params.require(:comment).permit(:content)
+  end
 end

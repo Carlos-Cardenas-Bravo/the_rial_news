@@ -1,11 +1,13 @@
-<% content_for :title, "New comment" %>
+<% content_for :title, "Nuevo comentario" %>
 
-<h1>New comment</h1>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Nuevo comentario</h1>
 
-<%= render "form", comment: @comment, post: @post %> <!-- paso al formulario el @post -->
+    <%= render "form", comment: @comment, post: @post %> <!-- Paso el @post al formulario -->
 
-<br>
-
-<div>
-  <%= link_to "Back to comments", comments_path %>
-</div>
+    <div class="mt-4">
+      <%= link_to "Volver al post", post_path(@post), class: "button is-link" %> <!-- Enlace para volver al post -->
+    </div>
+  </div>
+</section>

@@ -1,40 +1,39 @@
-<div id="<%= dom_id post %>">
-  <p><strong>Title:</strong>
-    <%= post.title %>
-  </p>
+<div id="<%= dom_id post %>" class="box">
+  <p><strong>Title:</strong></p>
+  <p class="title is-4"><%= post.title %></p>
 
-  <p><strong>Content:</strong>
-    <%= post.content %>
-  </p>
+  <p><strong>Content:</strong></p>
+  <p class="content"><%= post.content %></p>
 
-  <p><strong>Available:</strong>
-    <%= post.available %>
-  </p>
+  <p><strong>Available:</strong></p>
+  <p class="has-text-weight-bold"><%= post.available ? 'Yes' : 'No' %></p>
 
-  <!-- solo mostrar los comentarios si mostrar_comentarios es true -->
+  <!-- solo muestro los comentarios si mostrar_comentarios es true -->
   <% if mostrar_comentarios %>
     <% if post.comments.any? %>
-      <h3 class="subtitle is-6" style="display: inline;">Comentarios:</h3>
+      <h3 class="subtitle is-6">Comentarios:</h3>
       <ul>
-        <% post.comments.each do |comment| %> <!-- itero sobre todos los comentarios del post -->
-          <li>
-            <strong><%= comment.user.email %>:</strong> <!-- muestro el email del usuario que hizo el comentario -->
-            <p><%= comment.content %></p>
+        <% post.comments.each do |comment| %> <!-- Itero sobre todos los comentarios del post -->
+          <li class="box">
+            <p><strong><%= comment.user.email %>:</strong></p> <!-- Email del usuario que hizo el comentario -->
+            <p class="content"><%= comment.content %></p>
 
             <!-- Solo Admin puede ver este enlace para eliminar el comentario -->
             <% if current_user&.admin? %>
-              <%= button_to "Eliminar comentario", post_comment_path(post, comment), method: :delete, data: { confirm: "¿Estás seguro que deseas eliminar este comentario?", class: "button is-light" } %>
+              <div class="field is-grouped">
+                <%= button_to "Eliminar comentario", post_comment_path(post, comment), method: :delete, data: { confirm: "¿Estás seguro que deseas eliminar este comentario?" }, class: "button is-danger is-small" %>
+              </div>
             <% end %>
-
           </li>
         <% end %>
       </ul>
     <% else %>
-      <p>Sin comentarios aún.</p>
+      <p class="has-text-grey">Sin comentarios aún.</p>
     <% end %>
   <% end %>
+
   <div class="field is-grouped">
-    <!-- link para agregar un nuevo comentario -->
-    <%= link_to 'Comentar', new_post_comment_path(post), class: "button is-light" %>
+    <!-- Link para agregar un nuevo comentario -->
+    <%= link_to 'Comentar', new_post_comment_path(post), class: "button is-primary" %>
   </div>
 </div>

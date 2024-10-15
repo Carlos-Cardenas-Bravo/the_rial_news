@@ -23,8 +23,8 @@ default: &default
 development:
   <<: *default
   database: trn_development
-  username: carlos1970
-  password: junior2006
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
   host: localhost
   port: 5432
 

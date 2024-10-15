@@ -16,7 +16,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = Post.new(available: true)
   end
 
   # GET /posts/1/edit
@@ -63,6 +63,7 @@ class PostsController < ApplicationController
   end
 
   private
+  # Este método autoriza solo a los usuarios con rol de admin
     def authorize_admin
       redirect_to(root_path, alert: "No estás autorizado!") unless current_user&.admin?
     end

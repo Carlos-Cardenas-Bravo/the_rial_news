@@ -1,12 +1,15 @@
 <% content_for :title, "Editing post" %>
 
-<h1>Editing post</h1>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-3">Editar Publicación</h1>
 
-<%= render "form", post: @post %>
+    <%= render "form", post: @post %>
 
-<br>
+    <div class="buttons mt-4">
+      <%= link_to "Mostrar este Post", @post, class: "button is-info" %>
+      <%= link_to "Volver a los Posts", posts_path, class: "button is-light" %>
+    </div>
+  </div>
+</section>
 
-<div>
-  <%= link_to "Show this post", @post %> |
-  <%= link_to "Back to posts", posts_path %>
-</div>

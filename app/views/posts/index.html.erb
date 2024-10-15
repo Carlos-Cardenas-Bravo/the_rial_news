@@ -12,10 +12,6 @@
         </p>
       <% end %>
     </div>
-
-    <% if current_user&.admin? %>
-      <%= link_to 'Nuevo Post', new_post_path, class: "button is-light" %>
-    <% end %>
   </div>
 </section>
 

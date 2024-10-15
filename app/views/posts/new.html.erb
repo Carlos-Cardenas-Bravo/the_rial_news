@@ -1,11 +1,14 @@
 <% content_for :title, "New post" %>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Nuevo Post</h1>
 
-<h1>New post</h1>
+    <%= render "form", post: @post %>
 
-<%= render "form", post: @post %>
+    <br>
 
-<br>
-
-<div>
-  <%= link_to "Back to posts", posts_path %>
-</div>
+    <div>
+      <%= link_to "Volver a los Posts", posts_path %>
+    </div>
+  </div>
+</section>

@@ -1,1 +1,1 @@
-Pagy::DEFAULT[:limit] = 10
+Pagy::DEFAULT[:limit] = 5

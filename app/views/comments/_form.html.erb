@@ -1,8 +1,8 @@
-<%= form_with(model: [post,comment]) do |form| %>  <!-- vinculo el formulario con el post y el comentario -->
-  <% if comment.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+<%= form_with(model: [post, comment], local: true, html: { class: 'box' }) do |form| %>
 
+  <% if comment.errors.any? %>
+    <div class="notification is-danger">
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibieron que se guardara este comentario:</h2>
       <ul>
         <% comment.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,20 +11,25 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content %>
+  <div class="field">
+    <div class="control">
+      <%= form.label :content, class: "label" %>
+      <%= form.text_area :content, class: "textarea" %>
+    </div>
   </div>
 
-  <div>
-    <p><strong>User:</strong> <%= current_user.email %></p> <!-- muestro el email del usuario autenticado -->
+  <div class="field">
+    <p><strong>Usuario:</strong> <%= current_user.email %></p>
   </div>
 
-  <div>
-    <p><strong>Post:</strong> <%= @post.title %></p> <!-- muestro el título del post asociado -->
+  <div class="field">
+    <p><strong>Post:</strong> <%= @post.title %></p>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="field">
+    <div class="control">
+      <%= form.submit "Guardar comentario", class: "button is-primary" %>
+    </div>
   </div>
+
 <% end %>

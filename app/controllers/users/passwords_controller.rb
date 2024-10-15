@@ -31,18 +31,30 @@ class Users::PasswordsController < Devise::PasswordsController
   # end
 
   # PUT /resource/password
-  # def update
-  #   super
-  # end
+  def update
+    self.resource = resource_class.reset_password_by_token(resource_params)
+    yield resource if block_given?
 
-  # protected
+    if resource.errors.empty?
+      resource.unlock_access! if unlockable?(resource)
 
-  # def after_resetting_password_path_for(resource)
-  #   super(resource)
-  # end
+      # Destruir la sesión existente para evitar que se inicie sesión automáticamente
+      sign_out(resource) if user_signed_in?
 
-  # The path used after sending reset password instructions
-  # def after_sending_reset_password_instructions_path_for(resource_name)
-  #   super(resource_name)
-  # end
+      # Aquí estamos evitando que se inicie sesión automáticamente
+      # Y redirigimos al usuario a una página para confirmar que la contraseña ha sido cambiada.
+      respond_with resource, location: after_resetting_password_path_for(resource)
+    else
+      set_minimum_password_length
+      respond_with resource
+    end
+  end
+
+  protected
+
+  # Después de restablecer la contraseña, redirigir a una página específica
+  def after_resetting_password_path_for(resource)
+    new_user_session_path
+  end
+
 end

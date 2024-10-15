@@ -40,8 +40,8 @@ Rails.application.configure do
   # Looking to send emails in production? Check out our Email API/SMTP product!
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: 'decc499b54f385',
-    password: 'd76b42ffb59ffa',
+    user_name: ENV["MAILTRAP_USERNAME"] ,
+    password: ENV["MAILTRAP_PASSWORD"] ,
     address: 'sandbox.smtp.mailtrap.io',
     host: 'sandbox.smtp.mailtrap.io',
     port: '2525',

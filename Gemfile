@@ -25,10 +25,10 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
-#group :test do
+# group :test do
 #  gem "capybara"
 #  gem "selenium-webdriver"
-#end
+# end
 
 gem "devise", "~> 4.9"
 gem "faker", "~> 3.4"

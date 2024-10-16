@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :authorize_admin, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authorize_admin, only: [ :new, :create, :edit, :update, :destroy ]
   before_action :set_post, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
@@ -63,7 +63,7 @@ class PostsController < ApplicationController
   end
 
   private
-  # Este método autoriza solo a los usuarios con rol de admin
+    # Este método autoriza solo a los usuarios con rol de admin
     def authorize_admin
       redirect_to(root_path, alert: "No estás autorizado!") unless current_user&.admin?
     end

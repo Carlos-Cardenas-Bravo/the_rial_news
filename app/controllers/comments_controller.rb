@@ -1,12 +1,11 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [ :index, :show ]
   before_action :set_comment, only: %i[ show edit update destroy ]
-  before_action :set_post, only: [:new, :create, :destroy]  # cargo el post para la eliminación
-  before_action :authorize_admin, only: [:destroy]  # solo admin puede eliminar comentarios
+  before_action :set_post, only: [ :new, :create, :destroy ]  # cargo el post para la eliminación
+  before_action :authorize_admin, only: [ :destroy ]  # solo admin puede eliminar comentarios
 
   # GET /comments or /comments.json
   def index
-    @comments = Comment.all
     @pagy, @comments = pagy(Comment.all)
   end
 

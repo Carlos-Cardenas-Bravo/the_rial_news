@@ -18,5 +18,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :comments, dependent: :destroy
-  enum :role, [:normal_user, :admin]
+  enum :role, [ :normal_user, :admin ]
 end

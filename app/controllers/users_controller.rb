@@ -52,4 +52,4 @@ class UsersController < ApplicationController
         redirect_to root_path, alert: "No estás autorizado para realizar esta acción."
       end
     end
-  end
+end

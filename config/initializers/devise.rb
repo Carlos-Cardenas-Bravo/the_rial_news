@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Devise.setup do |config|
-
   # config.secret_key = '71136086b1458daffb72a5def9bf2dd2ec21a9f9b6b0e31aa8d6f7d8b284a3ad3070d4bff2e464b9992f692e396538d73b0afbe9bb361d00f7ccb505ee23a34f'
 
   # ==> Controller configuration
@@ -10,7 +9,7 @@ Devise.setup do |config|
 
   # ==> Mailer Configuration
 
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # config.mailer = 'Devise::Mailer'
 
@@ -20,7 +19,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
 
@@ -28,9 +27,9 @@ Devise.setup do |config|
 
   # config.request_keys = []
 
-  config.case_insensitive_keys = [:email]
+  config.case_insensitive_keys = [ :email ]
 
-  config.strip_whitespace_keys = [:email]
+  config.strip_whitespace_keys = [ :email ]
 
   # config.params_authenticatable = true
 
@@ -43,7 +42,7 @@ Devise.setup do |config|
 
   # config.paranoid = true
 
-  config.skip_session_storage = [:http_auth]
+  config.skip_session_storage = [ :http_auth ]
 
   # config.clean_up_csrf_token_on_authentication = true
 

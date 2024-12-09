@@ -33,6 +33,6 @@ end
 gem "devise", "~> 4.9"
 gem "faker", "~> 3.4"
 gem "annotate", "~> 3.2"
-gem "pagy", "~> 9.1"
+gem "pagy", "~> 9.3"
 
 gem "figaro", "~> 1.2"
